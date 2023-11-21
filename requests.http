@@ -1,0 +1,100 @@
+### List all products
+GET http://localhost:8080/api/products
+
+### Show existing product
+GET http://localhost:8080/api/products/1
+
+### Show non-existing product
+GET http://localhost:8080/api/products/3
+
+### Show non-existing product (with setting language)
+GET http://localhost:8080/api/products/3
+Accept-Language: pl
+
+### Create new product
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+    "name": "Something",
+    "description": "Blah",
+    "type": "BOOK",
+    "price": "PLN 100"
+}
+
+### Create new order
+POST http://localhost:8080/api/orders
+Content-Type: application/json
+
+{
+  "productsIds" : [1, 2]
+}
+
+### Show existing order
+GET http://localhost:8080/api/orders?id=3
+
+### Show non-existing order
+GET http://localhost:8080/api/orders?id=4
+
+### Show non-existing order (with setting language)
+GET http://localhost:8080/api/orders?id=4
+Accept-Language: pl
+
+### Search products by name
+GET http://localhost:8080/api/productSearch/byName?name=B
+
+### Search products by type
+GET http://localhost:8080/api/productSearch/byType?type=BOOK
+
+### Search products by max price
+GET http://localhost:8080/api/productSearch/byMaxPrice?maxPrice=100
+
+### Search product by description
+GET http://localhost:8080/api/productSearch/byDescription?description=A
+
+### Search orders by payment status
+GET http://localhost:8080/api/orderSearch/byPaymentStatus?paymentStatus=started
+
+### Actuator health
+GET http://localhost:8080/actuator/health
+
+### All actuator endpoints
+GET http://localhost:8080/actuator
+
+### Configuration properties
+GET http://localhost:8080/actuator/configprops
+
+### Environment
+GET http://localhost:8080/actuator/env
+
+### Beans
+GET http://localhost:8080/actuator/beans
+
+### Metrics
+GET http://localhost:8080/actuator/metrics
+
+### Single metric
+GET http://localhost:8080/actuator/metrics/system.cpu.usage
+
+### Loggers
+GET http://localhost:8080/actuator/loggers
+
+### Change logging level
+POST http://localhost:8080/actuator/loggers/logging.level.org.hibernate.SQL
+Content-Type: application/json
+
+{
+  "configuredLevel": "TRACE"
+}
+
+### Shutdown application
+POST http://localhost:8080/actuator/shutdown
+
+### Collected HTTP requests
+GET http://localhost:8080/actuator/httptrace
+
+### OpenAPI description
+GET http://localhost:8080/v3/api-docs.yaml
+
+
+

@@ -1,0 +1,21 @@
+<div th:switch="${orders}">
+    <h2 th:case="null">No orders yet!</h2>
+    <div th:case="*">
+        <h2>Orders</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Products</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.id}"></td>
+                <td th:text="${#strings.listJoin(order.productsIds, ',')}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a th:href="@{/orders/new}">New order</a>
+</div>

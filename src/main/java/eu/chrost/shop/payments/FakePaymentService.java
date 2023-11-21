@@ -1,13 +1,22 @@
 package eu.chrost.shop.payments;
 
+import eu.chrost.shop.common.retry.Retry;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.time.Instant;
 
 @Slf4j
-public class FakePaymentService {
-    private final UUIDPaymentIdGenerator paymentIdGenerator = new UUIDPaymentIdGenerator();
+@RequiredArgsConstructor
+public class FakePaymentService implements PaymentService {
+    private final PaymentIdGenerator paymentIdGenerator;
+    private final PaymentRepository paymentRepository;
+    private final ApplicationEventPublisher eventPublisher;
 
+    @Override
+    @LogPayments
+    @Retry(attempts = 2)
     public Payment process(PaymentRequest paymentRequest) {
         var payment = Payment.builder()
                 .id(paymentIdGenerator.getNext())
@@ -15,7 +24,7 @@ public class FakePaymentService {
                 .timestamp(Instant.now())
                 .status(PaymentStatus.STARTED)
                 .build();
-        log.info("A new payment of {} has been initiated", payment.getMoney());
-        return payment;
+        eventPublisher.publishEvent(new PaymentStatusChangedEvent(this, payment));
+        return paymentRepository.save(payment);
     }
 }

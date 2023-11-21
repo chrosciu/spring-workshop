@@ -1,8 +1,10 @@
-package eu.chrost.shop.payments;
+package eu.chrost.shop.products;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +13,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-import java.time.Instant;
 
 @Builder
 @Entity
@@ -19,11 +20,14 @@ import java.time.Instant;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Payment {
+public class Product {
+    @GeneratedValue
     @Id
-    String id;
-    BigDecimal money;
-    Instant timestamp;
+    private Long id;
+    private String name;
+    private String description;
+    @Column(precision = 38)
+    private BigDecimal price;
     @Enumerated(EnumType.STRING)
-    PaymentStatus status;
+    private ProductType type;
 }

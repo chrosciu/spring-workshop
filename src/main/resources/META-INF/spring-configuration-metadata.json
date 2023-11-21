@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "incremental.generator.initial-value",
+      "type": "java.lang.Long",
+      "description": "Initial generator value"
+    },
+    {
+      "name": "incremental.generator.step",
+      "type": "java.lang.Integer",
+      "description": "Generator step"
+    }
+  ]
+}

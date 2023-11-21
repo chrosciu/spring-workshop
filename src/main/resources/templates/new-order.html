@@ -1,0 +1,13 @@
+<link th:href="@{/styles.css}" rel="stylesheet" />
+<form action="#" th:action="@{/orders}" th:object="${order}" method="post">
+    <p>
+        <label for="productIds">Products</label>
+        <select th:field="*{productsIds}" id="productIds" multiple>
+            <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
+        </select>
+        <span th:if="${#fields.hasErrors('productsIds')}" th:errors="*{productsIds}" th:class="error"></span>
+    </p>
+    <p>
+        <input type="submit" value="Place order">
+    </p>
+</form>
