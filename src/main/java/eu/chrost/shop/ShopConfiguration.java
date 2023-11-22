@@ -1,9 +1,9 @@
-package eu.chrost.shop.payments;
+package eu.chrost.shop;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
-@Configuration
 @EnableAspectJAutoProxy
-public class PaymentsConfiguration {
+@Configuration
+public class ShopConfiguration {
 }
