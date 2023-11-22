@@ -1,10 +1,12 @@
 package eu.chrost.shop.payments;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
 @RequiredArgsConstructor
+@Component
 public class FakePaymentService implements PaymentService {
     private final PaymentIdGenerator paymentIdGenerator;
 
