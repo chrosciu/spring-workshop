@@ -1,5 +1,6 @@
 package eu.chrost.shop.payments;
 
+import eu.chrost.shop.common.Retry;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.extern.slf4j.Slf4j;
@@ -21,6 +22,8 @@ public class FakePaymentService implements PaymentService {
     }
 
     @LogPayments
+    @Retry(attempts = 2)
+    @Override
     public Payment process(PaymentRequest paymentRequest) {
         var payment = Payment.builder()
                 .id(paymentIdGenerator.getNext())
