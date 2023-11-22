@@ -2,18 +2,23 @@ package eu.chrost.shop.payments;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 @Component
 @Slf4j
 public class FakePaymentService implements PaymentService {
     private final PaymentIdGenerator paymentIdGenerator;
     private final PaymentRepository paymentRepository;
+
+    public FakePaymentService(@Qualifier("uuid") PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
+        this.paymentIdGenerator = paymentIdGenerator;
+        this.paymentRepository = paymentRepository;
+    }
 
     @LogPayments
     public Payment process(PaymentRequest paymentRequest) {
@@ -35,4 +40,6 @@ public class FakePaymentService implements PaymentService {
     void destroy() {
         log.info("Bean is to be destroyed");
     }
+
+
 }
