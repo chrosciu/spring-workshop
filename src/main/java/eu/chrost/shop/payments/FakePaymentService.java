@@ -6,6 +6,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
@@ -14,7 +15,7 @@ import java.time.Instant;
 @Component
 @Slf4j
 public class FakePaymentService implements PaymentService {
-    private final PaymentIdGenerator paymentIdGenerator;
+    private final ObjectFactory<PaymentIdGenerator> paymentIdGeneratorFactory;
     private final PaymentRepository paymentRepository;
 
     @LogPayments
@@ -22,6 +23,8 @@ public class FakePaymentService implements PaymentService {
     @AroundTestAnnotation
     @Override
     public Payment process(PaymentRequest paymentRequest) {
+        var paymentIdGenerator = paymentIdGeneratorFactory.getObject();
+        log.info("{}", paymentIdGenerator);
         var payment = Payment.builder()
                 .id(paymentIdGenerator.getNext())
                 .money(paymentRequest.getMoney())
