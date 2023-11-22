@@ -10,6 +10,7 @@ import java.time.Instant;
 public class FakePaymentService implements PaymentService {
     private final PaymentIdGenerator paymentIdGenerator;
 
+    @LogPayments
     public Payment process(PaymentRequest paymentRequest) {
         return Payment.builder()
                 .id(paymentIdGenerator.getNext())
