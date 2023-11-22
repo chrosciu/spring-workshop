@@ -2,6 +2,7 @@ package eu.chrost.shop;
 
 import eu.chrost.shop.payments.FakePaymentService;
 import eu.chrost.shop.payments.IncrementalPaymentIdGenerator;
+import eu.chrost.shop.payments.LoggingPaymentService;
 import eu.chrost.shop.payments.PaymentRequest;
 import lombok.extern.slf4j.Slf4j;
 
@@ -11,7 +12,8 @@ import java.math.BigDecimal;
 public class Shop {
     public static void main(String[] args) {
         var paymentIdGenerator = new IncrementalPaymentIdGenerator();
-        var paymentService = new FakePaymentService(paymentIdGenerator);
+        var fakePaymentService = new FakePaymentService(paymentIdGenerator);
+        var paymentService = new LoggingPaymentService(fakePaymentService);
         var paymentRequest = PaymentRequest.builder()
                 .money(BigDecimal.valueOf(100))
                 .build();
