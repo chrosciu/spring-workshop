@@ -4,8 +4,9 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @Component
+//@Scope(BeanDefinition.SCOPE_PROTOTYPE)
+//@Lazy
 public class IncrementalPaymentIdGenerator implements PaymentIdGenerator {
-
     private static final String ID_FORMAT = "%010d";
 
     @Setter
