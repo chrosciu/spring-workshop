@@ -11,8 +11,6 @@ import java.util.List;
 
 @Slf4j
 public class Shop {
-    private static final String BASE_PACKAGE = "eu.chrost.shop";
-
     private static final Product VIDEO_PRODUCT = Product.builder()
             .name("Spring masterclass")
             .description("Praktyczny kurs Spring framework")
@@ -28,7 +26,7 @@ public class Shop {
             .build();
 
     public static void main(String[] args) {
-        try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BASE_PACKAGE)) {
+        try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(ShopConfiguration.class)) {
             var shopService = applicationContext.getBean(ShopService.class);
             shopService.addProduct(VIDEO_PRODUCT);
             shopService.addProduct(BOOK_PRODUCT);
