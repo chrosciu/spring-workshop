@@ -3,6 +3,7 @@ package eu.chrost.shop;
 import eu.chrost.shop.orders.OrderService;
 import eu.chrost.shop.payments.PaymentService;
 import eu.chrost.shop.products.ProductService;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync
 @Configuration
 @ComponentScan
+@ConfigurationPropertiesScan
 public class ShopConfiguration {
     @Bean
     public ShopService shopService(OrderService orderService, PaymentService paymentService, ProductService productService) {
