@@ -5,11 +5,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 
-@Component
 @Aspect
 @Slf4j
 public class PaymentConsoleLogger {
