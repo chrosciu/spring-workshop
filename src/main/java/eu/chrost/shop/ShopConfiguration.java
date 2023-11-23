@@ -7,13 +7,26 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import java.util.concurrent.Executor;
 
 @EnableAspectJAutoProxy
+@EnableAsync
 @Configuration
 @ComponentScan
 public class ShopConfiguration {
     @Bean
     public ShopService shopService(OrderService orderService, PaymentService paymentService, ProductService productService) {
         return new ShopService(orderService, paymentService, productService);
+    }
+
+    @Bean(name = "threadPoolTaskExecutor")
+    public Executor getAsyncExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setMaxPoolSize(100);
+        executor.initialize();
+        return executor;
     }
 }
