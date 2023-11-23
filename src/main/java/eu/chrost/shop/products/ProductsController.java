@@ -12,9 +12,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductsController {
     private final ProductService productService;
+    private final ProductMapper productMapper;
 
     @GetMapping
-    public List<Product> getAllProducts() {
-        return productService.getAll();
+    public List<ProductOutputDto> getAllProducts() {
+        return productService.getAll().stream()
+                .map(productMapper::toOutputDto)
+                .toList();
     }
 }
