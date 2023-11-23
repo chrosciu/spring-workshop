@@ -1,6 +1,7 @@
 package eu.chrost.shop.payments;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,12 +25,17 @@ class PaymentsConfiguration {
     }
 
     @Bean
-    public PaymentService fakePaymentService(@Qualifier("uuid") PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
-        return new FakePaymentService(paymentIdGenerator, paymentRepository);
+    public PaymentService fakePaymentService(@Qualifier("uuid") PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository, ApplicationEventPublisher applicationEventPublisher) {
+        return new FakePaymentService(paymentIdGenerator, paymentRepository, applicationEventPublisher);
     }
 
     @Bean
     public PaymentConsoleLogger paymentConsoleLogger() {
         return new PaymentConsoleLogger();
+    }
+
+    @Bean
+    public PaymentStatusChangeListener paymentStatusChangeListener() {
+        return new PaymentStatusChangeListener();
     }
 }
