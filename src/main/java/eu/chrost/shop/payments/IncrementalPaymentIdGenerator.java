@@ -1,9 +1,7 @@
 package eu.chrost.shop.payments;
 
 import lombok.Setter;
-import org.springframework.stereotype.Component;
 
-@Component
 //@Scope(BeanDefinition.SCOPE_PROTOTYPE)
 //@Lazy
 public class IncrementalPaymentIdGenerator implements PaymentIdGenerator {
