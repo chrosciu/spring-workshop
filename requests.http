@@ -1,4 +1,14 @@
 ### Get all products
 GET http://localhost:8080/products
 
-###
+### Add new product
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "name": "Something",
+  "description": "Blah",
+  "type": "BOOK",
+  "price": 100
+}
+
