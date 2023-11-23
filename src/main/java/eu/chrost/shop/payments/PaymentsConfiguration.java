@@ -4,20 +4,17 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 
 @Configuration
 class PaymentsConfiguration {
     @Bean
-    @Profile("!uuid")
-    //@ConditionalOnProperty(value = "uuid.generator.enabled", havingValue = "false")
+    @ConditionalOnProperty(value = "uuid.generator.enabled", havingValue = "false")
     public PaymentIdGenerator incrementalPaymentIdGenerator() {
         return new IncrementalPaymentIdGenerator();
     }
 
     @Bean
-    @Profile("uuid")
-    //@ConditionalOnProperty("uuid.generator.enabled")
+    @ConditionalOnProperty("uuid.generator.enabled")
     public PaymentIdGenerator uuidPaymentIdGenerator() {
         return new UUIDPaymentIdGenerator();
     }
