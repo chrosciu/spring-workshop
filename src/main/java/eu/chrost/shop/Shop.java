@@ -11,7 +11,7 @@ import java.util.List;
 
 @Slf4j
 public class Shop {
-    private static final String BASE_PACKAGE = "com.chrosciu.shop";
+    private static final String BASE_PACKAGE = "eu.chrost.shop";
 
     private static final Product VIDEO_PRODUCT = Product.builder()
             .name("Spring masterclass")
