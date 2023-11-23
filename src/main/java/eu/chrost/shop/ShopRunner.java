@@ -48,9 +48,6 @@ public class ShopRunner implements CommandLineRunner {
         var transactionTemplate = new TransactionTemplate(platformTransactionManager);
         transactionTemplate.executeWithoutResult(transactionStatus -> {
             shopService.addProduct(VIDEO_PRODUCT);
-            if (1 == 1) {
-                throw new RuntimeException("Blah!");
-            }
             shopService.addProduct(BOOK_PRODUCT);
         });
     }
