@@ -14,4 +14,9 @@ public class ProductsConfiguration {
     public ProductService productService(ProductRepository productRepository) {
         return new ProductService(productRepository);
     }
+
+    @Bean
+    public ProductMapper productMapper() {
+        return new ProductMapper();
+    }
 }
