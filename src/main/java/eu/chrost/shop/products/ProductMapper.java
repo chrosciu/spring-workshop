@@ -10,4 +10,13 @@ public class ProductMapper {
                 .type(product.getType())
                 .build();
     }
+
+    public Product fromInputDto(ProductInputDto inputDto) {
+        return Product.builder()
+                .name(inputDto.getName())
+                .description(inputDto.getDescription())
+                .price(inputDto.getPrice())
+                .type(inputDto.getType())
+                .build();
+    }
 }
