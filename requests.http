@@ -32,3 +32,17 @@ GET http://localhost:8080/orders/2
 ### Show non-existing order
 GET http://localhost:8080/orders/100
 
+### Log into application and obtain token
+POST http://localhost:8080/auth/login
+Content-Type: application/json
+
+{
+  "username": "chrosciu",
+  "password": "Maja"
+}
+
+### Get all products using token
+
+GET http://localhost:8080/products
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaHJvc2NpdSIsImlhdCI6MTcxNjQ4Nzk3OSwiZXhwIjoxNzE2NTc0Mzc5fQ.0KM6i4_QVh5ETnuPBZeWrgfBhTOkQ4UsPj4p1T_z7mNdDsISdZ8YSYNZzIwN6VMCRnf0MvYDiDHkn9gh9ZFCKg
+
