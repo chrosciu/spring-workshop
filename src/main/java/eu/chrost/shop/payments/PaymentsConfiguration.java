@@ -1,7 +1,6 @@
 package eu.chrost.shop.payments;
 
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -10,9 +9,11 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableAspectJAutoProxy
 public class PaymentsConfiguration {
     @Bean
-    @Qualifier("incremental")
-    public PaymentIdGenerator incrementalPaymentIdGenerator() {
-        return new IncrementalPaymentIdGenerator();
+    @IncrementalQualifier
+    public PaymentIdGenerator incrementalPaymentIdGenerator(IncrementalPaymentIdGeneratorProperties properties) {
+        var generator = new IncrementalPaymentIdGenerator();
+        generator.setIndex(properties.initial());
+        return generator;
     }
 
     @Bean
@@ -27,7 +28,7 @@ public class PaymentsConfiguration {
     }
 
     @Bean
-    public PaymentService fakePaymentService(@UUIDQualifier PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
+    public PaymentService fakePaymentService(@IncrementalQualifier PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
         return new FakePaymentService(paymentIdGenerator, paymentRepository);
     }
 
