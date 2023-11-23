@@ -1,6 +1,6 @@
 package eu.chrost.shop.payments;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,13 +8,17 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class PaymentsConfiguration {
     @Bean
-    @Qualifier("incremental")
+    //@Qualifier("incremental")
+    //@Profile("!uuid")
+    @ConditionalOnProperty(value = "uuid.generator.enabled", havingValue = "false")
     public PaymentIdGenerator incrementalPaymentIdGenerator() {
         return new IncrementalPaymentIdGenerator();
     }
 
     @Bean
-    @UUIDQualifier
+    //@UUIDQualifier
+    //@Profile("uuid")
+    @ConditionalOnProperty("uuid.generator.enabled")
     public PaymentIdGenerator uuidPaymentIdGenerator() {
         return new UUIDPaymentIdGenerator();
     }
@@ -25,7 +29,7 @@ public class PaymentsConfiguration {
     }
 
     @Bean
-    public PaymentService fakePaymentService(@UUIDQualifier PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository, ApplicationEventPublisher applicationEventPublisher) {
+    public PaymentService fakePaymentService(/*@UUIDQualifier*/ PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository, ApplicationEventPublisher applicationEventPublisher) {
         return new FakePaymentService(paymentIdGenerator, paymentRepository, applicationEventPublisher);
     }
 
