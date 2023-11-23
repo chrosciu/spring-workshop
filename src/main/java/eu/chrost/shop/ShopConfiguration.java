@@ -6,8 +6,13 @@ import eu.chrost.shop.products.ProductService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+
+import java.util.concurrent.Executor;
 
 @EnableAspectJAutoProxy
+@EnableAsync
 @Configuration
 public class ShopConfiguration {
     @Bean
@@ -18,5 +23,13 @@ public class ShopConfiguration {
     @Bean
     public ShopRunner shopRunner(ShopService shopService) {
         return new ShopRunner(shopService);
+    }
+
+    @Bean(name = "threadPoolTaskExecutor")
+    public Executor getAsyncExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setMaxPoolSize(100);
+        executor.initialize();
+        return executor;
     }
 }
