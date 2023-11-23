@@ -10,3 +10,9 @@ Content-Type: application/json
   "type": "BOOK",
   "price": 100
 }
+
+###
+GET http://localhost:8080/products/1
+
+###
+GET http://localhost:8080/products/100

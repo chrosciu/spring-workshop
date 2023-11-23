@@ -2,6 +2,7 @@ package eu.chrost.shop.products;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,5 +29,10 @@ public class ProductsController {
         var newProduct = productMapper.fromInputDto(inputDto);
         var savedProduct = productService.add(newProduct);
         return productMapper.toOutputDto(savedProduct);
+    }
+
+    @GetMapping("/{id}")
+    public ProductOutputDto getProduct(@PathVariable long id) {
+        return productMapper.toOutputDto(productService.getById(id));
     }
 }
