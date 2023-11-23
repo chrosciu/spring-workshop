@@ -14,4 +14,9 @@ public class ShopConfiguration {
     public ShopService shopService(OrderService orderService, PaymentService paymentService, ProductService productService) {
         return new ShopService(orderService, paymentService, productService);
     }
+
+    @Bean
+    public ShopRunner shopRunner(ShopService shopService) {
+        return new ShopRunner(shopService);
+    }
 }
