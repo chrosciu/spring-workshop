@@ -96,5 +96,17 @@ GET http://localhost:8080/actuator/httptrace
 ### OpenAPI description
 GET http://localhost:8080/v3/api-docs.yaml
 
+### Log into application and obtain token
+POST http://localhost:8080/auth/login
+Content-Type: application/json
 
+{
+  "username": "chrosciu",
+  "password": "Maja"
+}
+
+### Get all products using token
+
+GET http://localhost:8080/api/products
+Authorization: Bearer <token>
 
