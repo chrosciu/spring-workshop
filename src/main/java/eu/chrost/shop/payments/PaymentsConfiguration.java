@@ -2,6 +2,7 @@ package eu.chrost.shop.payments;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,7 +30,20 @@ class PaymentsConfiguration {
     }
 
     @Bean(initMethod = "init", destroyMethod = "destroy")
-    public PaymentService fakePaymentService(PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
-        return new FakePaymentService(paymentIdGenerator, paymentRepository);
+    public PaymentService fakePaymentService(
+            PaymentIdGenerator paymentIdGenerator,
+            PaymentRepository paymentRepository,
+            ApplicationEventPublisher applicationEventPublisher) {
+        return new FakePaymentService(paymentIdGenerator, paymentRepository, applicationEventPublisher);
+    }
+
+    @Bean
+    public PaymentConsoleLogger paymentConsoleLogger() {
+        return new PaymentConsoleLogger();
+    }
+
+    @Bean
+    public PaymentStatusChangeListener paymentStatusChangeListener() {
+        return new PaymentStatusChangeListener();
     }
 }
