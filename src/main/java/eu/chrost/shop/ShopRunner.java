@@ -3,14 +3,17 @@ package eu.chrost.shop;
 import eu.chrost.shop.orders.Order;
 import eu.chrost.shop.products.Product;
 import eu.chrost.shop.products.ProductType;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.CommandLineRunner;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Slf4j
-public class Shop {
+public class ShopRunner implements CommandLineRunner {
+    private final ShopService shopService;
     private static final Product VIDEO_PRODUCT = Product.builder()
             .name("Spring masterclass")
             .description("Praktyczny kurs Spring framework")
@@ -24,18 +27,15 @@ public class Shop {
             .type(ProductType.BOOK)
             .price(BigDecimal.valueOf(200))
             .build();
+    @Override
+    public void run(String... args) throws Exception {
+        shopService.addProduct(VIDEO_PRODUCT);
+        shopService.addProduct(BOOK_PRODUCT);
+        log.info(shopService.getProducts().toString());
 
-    public static void main(String[] args) {
-        try (AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(ShopConfiguration.class)) {
-            var shopService = applicationContext.getBean(ShopService.class);
-            shopService.addProduct(VIDEO_PRODUCT);
-            shopService.addProduct(BOOK_PRODUCT);
-            log.info(shopService.getProducts().toString());
-
-            var order = new Order(List.of(VIDEO_PRODUCT, BOOK_PRODUCT));
-            shopService.placeOrder(order);
-            var payment = shopService.payForOrder(order.getId());
-            log.info(payment.getId());
-        }
+        var order = new Order(List.of(VIDEO_PRODUCT, BOOK_PRODUCT));
+        shopService.placeOrder(order);
+        var payment = shopService.payForOrder(order.getId());
+        log.info(payment.getId());
     }
 }
