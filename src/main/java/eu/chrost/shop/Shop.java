@@ -37,7 +37,7 @@ public class Shop {
             var order = new Order(List.of(VIDEO_PRODUCT, BOOK_PRODUCT));
             shopService.placeOrder(order);
             var payment = shopService.payForOrder(order.getId());
-            log.info(payment.getId());
+            log.info("Order placed with payment id: {}", payment.getId());
         }
     }
 }
