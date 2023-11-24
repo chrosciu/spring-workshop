@@ -5,6 +5,7 @@ incremental:
     generator:
         initial: 100
         step: 5
+
 request-logging:
     enabled: true
     include-headers: true
@@ -14,6 +15,28 @@ request-logging:
         max-length: 10000
     urls:
         - /products/*
+
 logging:
     pattern:
         console: "%clr(%d{${LOG_DATEFORMAT_PATTERN:yyyy-MM-dd'T'HH:mm:ss.SSSXXX}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%mdc{requestId:-N/A}]){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:%wEx}"
+    level:
+        org:
+            hibernate:
+                SQL: DEBUG
+                type:
+                    descriptor:
+                        sql:
+                            BasicBinder: TRACE
+
+spring:
+    datasource:
+        password: admin
+        url: jdbc:postgresql://localhost:5432/spring-workshop
+        username: admin
+    jpa:
+        hibernate:
+            ddl-auto: create-drop
+        properties:
+            hibernate:
+                format_sql: true
+
