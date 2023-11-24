@@ -3,7 +3,8 @@ package eu.chrost.shop.products;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.jdbc.Sql;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,23 +28,25 @@ public class ProductRepositoryTest {
     @Test
     void shouldFindAllProductsWithNameContainingGivenPhrase() {
         //when
-        var products = productRepository.findByNameContaining("pod");
+        var products = productRepository.findByNameContaining("masterclass");
 
         //then
         assertThat(products).extracting(Product::getId)
-                .containsExactly(5L, 8L);
+                .containsExactly(1L, 3L, 7L, 9L);
     }
 
     @Test
     void shouldFindAllProductsWithNameContainingGivenPhrasePaging() {
         //when
-        var products = productRepository.findByNameContaining("pod", Pageable.ofSize(1));
+        var products = productRepository.findByNameContaining(
+                "masterclass",
+                PageRequest.of(1, 2, Sort.by(Sort.Direction.DESC, "id"))
+        );
 
         //then
-        assertThat(products.getContent()).extracting(Product::getId)
-                .containsExactly(5L);
-
-        assertThat(products.getTotalElements()).isEqualTo(2);
+        assertThat(products).extracting(Product::getId)
+                .containsExactly(3L, 1L);
+        assertThat(products.getTotalElements()).isEqualTo(4);
     }
 
     @Test
