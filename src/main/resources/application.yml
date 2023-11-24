@@ -23,10 +23,9 @@ logging:
         org:
             hibernate:
                 SQL: DEBUG
-                type:
-                    descriptor:
-                        sql:
-                            BasicBinder: TRACE
+                orm:
+                    jdbc:
+                        bind: TRACE
 
 spring:
     datasource:
@@ -35,7 +34,7 @@ spring:
         username: admin
     jpa:
         hibernate:
-            ddl-auto: create-drop
+            ddl-auto: create
         properties:
             hibernate:
                 format_sql: true
