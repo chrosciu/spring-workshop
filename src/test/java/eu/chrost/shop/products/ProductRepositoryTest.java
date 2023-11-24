@@ -35,7 +35,7 @@ public class ProductRepositoryTest {
     }
 
     @Test
-    void shouldFindAllProductsWithNameContainingGivenPhrase1() {
+    void shouldFindAllProductsWithNameContainingGivenPhrasePaging() {
         //when
         var products = productRepository.findByNameContaining("pod", Pageable.ofSize(1));
 
@@ -44,5 +44,24 @@ public class ProductRepositoryTest {
                 .containsExactly(5L);
 
         assertThat(products.getTotalElements()).isEqualTo(2);
+    }
+
+    @Test
+    void shouldFindAllProductsWithGivenType() {
+        //when
+        var videoProducts = productRepository.findByType(ProductType.VIDEO);
+
+        //then
+        assertThat(videoProducts).extracting(Product::getId)
+                .containsExactly(1L, 3L, 7L);
+    }
+
+    @Test
+    void shouldFindSingleProductWithGivenDescription() {
+        //when
+        var maybeProduct = productRepository.findByDescription("Blah");
+
+        //then
+        assertThat(maybeProduct).isEmpty();
     }
 }
