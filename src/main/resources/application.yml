@@ -26,15 +26,8 @@ logging:
                 orm:
                     jdbc:
                         bind: TRACE
-
 spring:
-    datasource:
-        password: admin
-        url: jdbc:postgresql://localhost:5432/spring-workshop
-        username: admin
     jpa:
-        hibernate:
-            ddl-auto: create
         properties:
             hibernate:
                 format_sql: true
