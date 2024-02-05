@@ -1,3 +1,7 @@
 incremental:
   generator:
     initial: 100
+
+uuid:
+  generator:
+    enabled: false
