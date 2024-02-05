@@ -2,6 +2,7 @@ package eu.chrost.shop.payments;
 
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -31,8 +32,11 @@ public class PaymentsConfiguration {
     }
 
     @Bean
-    public PaymentService fakePaymentService(PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
-        return new FakePaymentService(paymentIdGenerator, paymentRepository);
+    public PaymentService fakePaymentService(
+            PaymentIdGenerator paymentIdGenerator,
+            PaymentRepository paymentRepository,
+            ApplicationEventPublisher applicationEventPublisher) {
+        return new FakePaymentService(paymentIdGenerator, paymentRepository, applicationEventPublisher);
     }
 
     @Bean

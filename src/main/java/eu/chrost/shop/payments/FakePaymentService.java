@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.ApplicationEventPublisher;
 
 import java.time.Instant;
 
@@ -12,6 +13,7 @@ import java.time.Instant;
 public class FakePaymentService implements PaymentService {
     private final PaymentIdGenerator paymentIdGenerator;
     private final PaymentRepository paymentRepository;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @LogPayments
     public Payment process(PaymentRequest paymentRequest) {
@@ -21,6 +23,8 @@ public class FakePaymentService implements PaymentService {
                 .timestamp(Instant.now())
                 .status(PaymentStatus.STARTED)
                 .build();
+        var event = new PaymentStatusChangedEvent(this, payment);
+        applicationEventPublisher.publishEvent(event);
         return paymentRepository.save(payment);
     }
 
