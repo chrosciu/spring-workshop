@@ -1,0 +1,4 @@
+order:
+  audit:
+    enabled: true
+    log-prefix: Order audit event detected
