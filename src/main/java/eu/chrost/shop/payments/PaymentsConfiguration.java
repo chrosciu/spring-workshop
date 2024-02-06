@@ -27,11 +27,6 @@ public class PaymentsConfiguration {
     }
 
     @Bean
-    public PaymentRepository paymentRepository() {
-        return new HashMapPaymentRepository();
-    }
-
-    @Bean
     public PaymentService fakePaymentService(
             PaymentIdGenerator paymentIdGenerator,
             PaymentRepository paymentRepository,
