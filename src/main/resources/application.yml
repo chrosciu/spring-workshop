@@ -5,3 +5,24 @@ incremental:
 uuid:
   generator:
     enabled: false
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring-workshop
+    username: admin
+    password: admin
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: create
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
