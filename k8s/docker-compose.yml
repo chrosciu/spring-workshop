@@ -1,0 +1,8 @@
+name: spring-workshop
+services:
+  spring-shop:
+    ports:
+      - 8080:8080
+    environment:
+      - INCREMENTAL_GENERATOR_INITIAL=200
+    image: chrosciu/spring-shop:1
