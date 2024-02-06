@@ -24,6 +24,6 @@ public class OrderService {
 
     public void update(Order order) {
         applicationEventPublisher.publishEvent(new OrderAuditEvent(this, UPDATE, order));
-        orderRepository.update(order);
+        orderRepository.save(order);
     }
 }

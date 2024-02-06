@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -34,7 +34,7 @@ public class ShopRunner implements CommandLineRunner {
         shopService.addProduct(BOOK_PRODUCT);
         log.info(shopService.getProducts().toString());
 
-        var order = new Order(List.of(VIDEO_PRODUCT, BOOK_PRODUCT));
+        var order = new Order(Set.of(VIDEO_PRODUCT, BOOK_PRODUCT));
         shopService.placeOrder(order);
         var payment = shopService.payForOrder(order.getId());
         log.info("Order placed with payment id: {}", payment.getId());

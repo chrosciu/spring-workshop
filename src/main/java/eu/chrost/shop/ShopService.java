@@ -8,6 +8,7 @@ import eu.chrost.shop.payments.PaymentService;
 import eu.chrost.shop.products.Product;
 import eu.chrost.shop.products.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class ShopService {
         return orderService.add(order);
     }
 
+    @Transactional
     public Payment payForOrder(long orderId) {
         var order = orderService.getBy(orderId);
         var paymentRequest = PaymentRequest.builder()

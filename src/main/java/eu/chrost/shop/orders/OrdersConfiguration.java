@@ -8,11 +8,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OrdersConfiguration {
     @Bean
-    public OrderRepository orderRepository() {
-        return new HashMapOrderRepository();
-    }
-
-    @Bean
     public OrderService orderService(OrderRepository orderRepository, ApplicationEventPublisher applicationEventPublisher) {
         return new OrderService(orderRepository, applicationEventPublisher);
     }
