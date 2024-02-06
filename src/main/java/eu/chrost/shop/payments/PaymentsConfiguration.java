@@ -24,13 +24,11 @@ class PaymentsConfiguration {
         return new UUIDPaymentIdGenerator();
     }
 
-    @Bean
-    public PaymentRepository paymentRepository() {
-        return new HashMapPaymentRepository();
-    }
 
     @Bean
-    public PaymentService fakePaymentService(PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository, ApplicationEventPublisher applicationEventPublisher) {
+    public PaymentService fakePaymentService(PaymentIdGenerator paymentIdGenerator,
+                                             PaymentRepository paymentRepository,
+                                             ApplicationEventPublisher applicationEventPublisher) {
         return new FakePaymentService(paymentIdGenerator, paymentRepository, applicationEventPublisher);
     }
 
