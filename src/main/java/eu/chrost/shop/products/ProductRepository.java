@@ -1,8 +1,6 @@
 package eu.chrost.shop.products;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ProductRepository {
-    Product save(Product product);
-    List<Product> findAll();
+public interface ProductRepository extends JpaRepository<Product, Long> {
 }
