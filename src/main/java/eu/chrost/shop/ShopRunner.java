@@ -2,9 +2,11 @@ package eu.chrost.shop;
 
 import eu.chrost.shop.orders.Order;
 import eu.chrost.shop.products.Product;
+import eu.chrost.shop.products.ProductRepository;
 import eu.chrost.shop.products.ProductType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
 import java.math.BigDecimal;
@@ -14,6 +16,10 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class ShopRunner implements CommandLineRunner {
     private final ShopService shopService;
+
+    @Autowired
+    private ProductRepository productRepository;
+
     private static final Product VIDEO_PRODUCT = Product.builder()
             .name("Spring masterclass")
             .description("Praktyczny kurs Spring framework")
@@ -40,5 +46,14 @@ public class ShopRunner implements CommandLineRunner {
         var payment = shopService.payForOrder(order.getId());
         log.info("Pay for order - end");
         log.info("Order placed with payment id: {}", payment.getId());
+
+        var productsWithSpringInName = productRepository.findByNameContaining("Spring");
+        log.info("{}", productsWithSpringInName);
+
+        var books = productRepository.findByType(ProductType.BOOK);
+        log.info("{}", books);
+
+        var productWithSpringDescription = productRepository.findByDescription("Spring");
+        log.info("{}", productWithSpringDescription);
     }
 }
