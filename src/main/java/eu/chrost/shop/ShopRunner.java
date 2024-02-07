@@ -36,7 +36,9 @@ public class ShopRunner implements CommandLineRunner {
 
         var order = new Order(Set.of(VIDEO_PRODUCT, BOOK_PRODUCT));
         shopService.placeOrder(order);
+        log.info("Pay for order - start");
         var payment = shopService.payForOrder(order.getId());
+        log.info("Pay for order - end");
         log.info("Order placed with payment id: {}", payment.getId());
     }
 }

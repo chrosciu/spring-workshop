@@ -20,4 +20,12 @@ spring:
 logging:
   level:
     sql: DEBUG
-    org.hibernate.orm.jdbc.bind: TRACE
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
+        transaction: TRACE
+      hibernate:
+        orm:
+          jdbc:
+            bind: TRACE
