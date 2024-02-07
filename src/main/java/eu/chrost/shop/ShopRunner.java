@@ -30,8 +30,11 @@ public class ShopRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        shopService.addProduct(VIDEO_PRODUCT);
-        shopService.addProduct(BOOK_PRODUCT);
+        try {
+            shopService.addProducts(VIDEO_PRODUCT, BOOK_PRODUCT);
+        } catch (Exception e) {
+            log.warn("Error during adding products to shop", e);
+        }
         log.info(shopService.getProducts().toString());
 
         var order = new Order(List.of(VIDEO_PRODUCT, BOOK_PRODUCT));

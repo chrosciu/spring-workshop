@@ -8,6 +8,7 @@ import eu.chrost.shop.payments.PaymentService;
 import eu.chrost.shop.products.Product;
 import eu.chrost.shop.products.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,6 +20,13 @@ public class ShopService {
 
     public Product addProduct(Product product) {
         return productService.add(product);
+    }
+
+    @Transactional
+    public void addProducts(Product... products) {
+        for (Product product : products) {
+            addProduct(product);
+        }
     }
 
     public List<Product> getProducts() {

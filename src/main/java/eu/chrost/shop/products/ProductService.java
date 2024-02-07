@@ -2,6 +2,8 @@ package eu.chrost.shop.products;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -10,7 +12,12 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
 
+    //@Transactional (default propagation is REQUIRED)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Product add(Product product) {
+        if (ProductType.BOOK == product.getType()) {
+            throw new RuntimeException("Book cannot be saved!");
+        }
         return productRepository.save(product);
     }
 
