@@ -2,13 +2,17 @@ package eu.chrost.shop.payments;
 
 import eu.chrost.shop.common.AroundTestAnnotation;
 import eu.chrost.shop.common.Retry;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class FakePaymentService implements PaymentService {
     private final PaymentIdGenerator paymentIdGenerator;
     private final PaymentRepository paymentRepository;
@@ -25,5 +29,15 @@ public class FakePaymentService implements PaymentService {
                 .status(PaymentStatus.STARTED)
                 .build();
         return paymentRepository.save(payment);
+    }
+
+    @PostConstruct
+    void init() {
+        log.info("Bean has been created");
+    }
+
+    @PreDestroy
+    void destroy() {
+        log.info("Bean is to be destroyed");
     }
 }
