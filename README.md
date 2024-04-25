@@ -16,11 +16,11 @@ Sprawdzamy na liście czy kontener się zbudował:
 
 Uruchamiamy:
 
-`docker run -it -p 8080:8080 spring-workshop`
+`docker run -it -p 8080:8080 chrosciu/spring-workshop`
 
 Można przekazać property poprzez zmienną środowiskową:
 
-`docker run -it -p 8080:8080 -e GENERATOR_INITIAL=10 spring-workshop`
+`docker run -it -p 8080:8080 -e GENERATOR_INITIAL=10 chrosciu/spring-workshop`
 
 ## Zadania
 

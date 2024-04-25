@@ -72,6 +72,7 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
+                    <imageName>chrosciu/spring-workshop</imageName>
                 </configuration>
             </plugin>
             <plugin>
@@ -80,7 +81,7 @@
                 <version>3.4.2</version>
                 <configuration>
                     <to>
-                        <image>spring-workshop</image>
+                        <image>chrosciu/spring-workshop</image>
                     </to>
                 </configuration>
             </plugin>
