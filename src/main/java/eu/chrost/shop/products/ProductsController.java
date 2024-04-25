@@ -1,7 +1,6 @@
 package eu.chrost.shop.products;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,7 +32,7 @@ public class ProductsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductOutputDto> getProduct(@PathVariable long id) {
-        return ResponseEntity.ok(productMapper.toOutputDto(productService.getById(id)));
+    public ProductOutputDto getProduct(@PathVariable long id) {
+        return productMapper.toOutputDto(productService.getById(id));
     }
 }
