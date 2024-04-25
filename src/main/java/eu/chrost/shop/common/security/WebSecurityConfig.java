@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -21,31 +20,26 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
 
     @Bean
+    public JwtService jwtService() {
+        return new JwtService();
+    }
+
+    @Bean
     public UserDetailsService userDetailsService() {
         return new InMemoryUserDetailsService();
     }
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
+    public AuthTokenFilter authenticationJwtTokenFilter(JwtService jwtService, UserDetailsService userDetailsService) {
+        return new AuthTokenFilter(jwtService, userDetailsService);
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService) {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService());
+        daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         daoAuthenticationProvider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
         return daoAuthenticationProvider;
-    }
-
-    @Bean
-    public AuthenticationEntryPoint authenticationEntryPoint() {
-        return new AuthenticationEntryPointJwt();
-    }
-
-    @Bean
-    public JwtService jwtUtils() {
-        return new JwtService();
-    }
-
-    @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter() {
-        return new AuthTokenFilter(jwtUtils(), userDetailsService());
     }
 
     @Bean
@@ -54,12 +48,14 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http,
+                                           AuthTokenFilter authTokenFilter,
+                                           AuthenticationProvider authenticationProvider) throws Exception {
         return http
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .exceptionHandling(exceptionHandling ->
-                        exceptionHandling.authenticationEntryPoint(authenticationEntryPoint()))
+                        exceptionHandling.authenticationEntryPoint(new AuthenticationEntryPointJwt()))
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> {
@@ -67,9 +63,8 @@ public class WebSecurityConfig {
                             .requestMatchers("/auth/login").permitAll()
                             .requestMatchers("/**").authenticated();
                 })
-                .authenticationProvider(authenticationProvider())
-                .addFilterBefore(authenticationJwtTokenFilter(),
-                        UsernamePasswordAuthenticationFilter.class)
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(authTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 }
