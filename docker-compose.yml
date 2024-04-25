@@ -1,0 +1,17 @@
+services:
+  postgres-payments:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: payments
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: myuser
+    ports:
+      - "5432"
+  postgres-products:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: products
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: myuser
+    ports:
+      - "5433:5432"
