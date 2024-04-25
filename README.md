@@ -1,10 +1,14 @@
 ## Konteneryzacja aplikacji
 
-### Za pomocą buildpack
-
-Budujemy kontener:
+### Budowa obrazu z wykorzystaniem buildpack
 
 `mvn spring-boot:build-image`
+
+### Budowa obrazu z wykorzystaniem jib
+
+`mvn clean compile jib:dockerBuild`
+
+### Uruchomienie obrazu
 
 Sprawdzamy na liście czy kontener się zbudował:
 
@@ -12,11 +16,11 @@ Sprawdzamy na liście czy kontener się zbudował:
 
 Uruchamiamy:
 
-`docker run -it -p 8080:8080 spring-workshop:0.0.1-SNAPSHOT`
+`docker run -it -p 8080:8080 spring-workshop`
 
 Można przekazać property poprzez zmienną środowiskową:
 
-`docker run -it -p 8080:8080 -e GENERATOR_INITIAL=10 spring-workshop:0.0.1-SNAPSHOT`
+`docker run -it -p 8080:8080 -e GENERATOR_INITIAL=10 spring-workshop`
 
 ## Zadania
 
