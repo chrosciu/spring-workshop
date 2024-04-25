@@ -1,22 +1,22 @@
 package eu.chrost.shop.payments;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
 class PaymentsConfiguration {
     @Bean
-    //@Profile("!uuid")
     @ConditionalOnBooleanProperty(value = "uuid.generator.enabled", havingValue = false)
-    public PaymentIdGenerator incrementalPaymentIdGenerator() {
-        return new IncrementalPaymentIdGenerator();
+    public PaymentIdGenerator incrementalPaymentIdGenerator(@Value("${incremental.generator.initial:10}") long initialValue) {
+        var generator = new IncrementalPaymentIdGenerator();
+        generator.setIndex(initialValue);
+        return generator;
     }
 
     @Bean
-    //@Profile("uuid")
     @ConditionalOnBooleanProperty("uuid.generator.enabled")
     public PaymentIdGenerator uuidPaymentIdGenerator() {
         return new UUIDPaymentIdGenerator();
