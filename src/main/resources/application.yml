@@ -5,3 +5,12 @@ incremental:
     generator:
         initial: 100
         step: 5
+request-logging:
+    enabled: true
+    include-headers: true
+    include-query-string: true
+    payload:
+        include: true
+        max-length: 10000
+    urls:
+        - /products/*

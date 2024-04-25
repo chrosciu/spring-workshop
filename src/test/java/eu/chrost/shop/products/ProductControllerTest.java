@@ -57,6 +57,7 @@ public class ProductControllerTest {
         when(productService.getAll())
                 .thenReturn(List.of(VIDEO_PRODUCT, BOOK_PRODUCT));
 
+        //when / then
         mockMvc.perform(get("/products"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
@@ -67,13 +68,6 @@ public class ProductControllerTest {
     @Test
     @SneakyThrows
     void shouldAllowToCreateProductGivenAsRequestBody() {
-        //var productJson = "{\"name\": \"Spring do poduszki\"}";
-
-//        var productToSend = new ProductInputDto();
-//        productToSend.setName("Spring do poduszki");
-//        var objectMapper = new ObjectMapper();
-//        var productJson = objectMapper.writeValueAsString(productToSend);
-
         var productJson = """
                 {
                     "name": "Spring do poduszki"
