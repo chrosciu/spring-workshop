@@ -1,6 +1,7 @@
 package eu.chrost.shop.products;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/products")
 @RequiredArgsConstructor
+@Slf4j
 public class ProductsController {
     private final ProductService productService;
     private final ProductMapper productMapper;
@@ -33,6 +35,7 @@ public class ProductsController {
 
     @GetMapping("/{id}")
     public ProductOutputDto getProduct(@PathVariable long id) {
+        log.info("getting product with id {}", id);
         return productMapper.toOutputDto(productService.getById(id));
     }
 }
