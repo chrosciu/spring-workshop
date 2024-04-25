@@ -9,10 +9,13 @@ public class IncrementalPaymentIdGenerator implements PaymentIdGenerator {
 
     @Setter
     private long index;
+    @Setter
+    private long step;
 
     @Override
     public String getNext() {
-        return String.format(ID_FORMAT, ++index);
+        index = index + step;
+        return String.format(ID_FORMAT, index);
     }
 
 }

@@ -1,18 +1,20 @@
 package eu.chrost.shop.payments;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@EnableConfigurationProperties(IncrementalPaymentIdGeneratorProperties.class)
 class PaymentsConfiguration {
     @Bean
     @ConditionalOnProperty(value = "uuid.generator.enabled", havingValue = "false")
-    public PaymentIdGenerator incrementalPaymentIdGenerator(@Value("${incremental.generator.initial:10}") long initialValue) {
+    public PaymentIdGenerator incrementalPaymentIdGenerator(IncrementalPaymentIdGeneratorProperties generatorProperties) {
         var generator = new IncrementalPaymentIdGenerator();
-        generator.setIndex(initialValue);
+        generator.setIndex(generatorProperties.initial());
+        generator.setStep(generatorProperties.step());
         return generator;
     }
 
