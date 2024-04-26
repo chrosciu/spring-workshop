@@ -1,5 +1,6 @@
 package eu.chrost.shop.common.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,8 +21,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
 
     @Bean
-    public JwtService jwtService() {
-        return new JwtService();
+    public JwtService jwtService(
+            @Value("${security.jwt.secret}") String jwtSecret,
+            @Value("${security.jwt.expirationMs}") int jwtExpirationMs) {
+        return new JwtService(jwtSecret, jwtExpirationMs);
     }
 
     @Bean

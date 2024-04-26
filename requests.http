@@ -108,5 +108,5 @@ Content-Type: application/json
 ### Get all products using token
 
 GET http://localhost:8080/api/products
-Authorization: Bearer <token>
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJjaHJvc2NpdSIsImlhdCI6MTcxNDEyMDE0OCwiZXhwIjoxNzE0MjA2NTQ4fQ.8IOcte_rBAtxsRagzqxzYjyA3Iw69ig1046_84hwQ0Rh0rQOzuiGWx6U1m7y9lojSfR0t0kgdX9zh_upJekVqA
 
