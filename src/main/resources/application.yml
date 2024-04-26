@@ -27,6 +27,9 @@ logging:
                     jdbc:
                         bind: TRACE
 spring:
+    h2:
+        console:
+            enabled: true
     jpa:
         properties:
             hibernate:
