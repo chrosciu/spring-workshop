@@ -32,7 +32,7 @@ public class AuthController {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            String jwt = jwtService.generateJwtToken(authentication);
+            String jwt = jwtService.generateJwtToken(loginRequest.getUsername());
             return ResponseEntity.ok(new JwtResponse(jwt));
         } catch (AuthenticationException e) {
             log.warn("Error during authentication: ", e);
