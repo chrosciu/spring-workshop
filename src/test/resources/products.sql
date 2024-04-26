@@ -68,4 +68,4 @@ VALUES (10,
         1000,
         'AUDIO');
 
-SELECT setval('product_seq', 11, FALSE);
+-- SELECT setval('product_seq', 11, FALSE);
