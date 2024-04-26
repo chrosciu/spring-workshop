@@ -1,11 +1,14 @@
 package eu.chrost.shop.products;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Optional;
 
 @RequiredArgsConstructor
+@Slf4j
 public class CustomProductRepositoryImpl implements CustomProductRepository {
     private final EntityManager entityManager;
 
@@ -17,8 +20,11 @@ public class CustomProductRepositoryImpl implements CustomProductRepository {
                     .setParameter("description", description)
                     .getSingleResult()
             );
+        } catch (NoResultException ne) {
+            //this is correct if no product with given description exists
         } catch (Exception e) {
-            return Optional.empty();
+            log.warn("", e);
         }
+        return Optional.empty();
     }
 }
