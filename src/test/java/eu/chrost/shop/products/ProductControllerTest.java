@@ -67,13 +67,6 @@ public class ProductControllerTest {
     @Test
     @SneakyThrows
     void shouldAllowToCreateProductGivenAsRequestBody() {
-        //var productJson = "{\"name\": \"Spring do poduszki\"}";
-
-//        var productToSend = new ProductInputDto();
-//        productToSend.setName("Spring do poduszki");
-//        var objectMapper = new ObjectMapper();
-//        var productJson = objectMapper.writeValueAsString(productToSend);
-
         var productJson = """
                 {
                     "name": "Spring do poduszki"
