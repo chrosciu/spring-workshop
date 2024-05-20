@@ -34,8 +34,22 @@ public class ShopRunner implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         shopService.addProduct(VIDEO_PRODUCT);
-        shopService.addProduct(BOOK_PRODUCT);
+
+        log.info("First fetch of products");
         log.info(shopService.getProducts().toString());
+
+        log.info("Second fetch of products");
+        log.info(shopService.getProducts().toString());
+
+        shopService.addProduct(BOOK_PRODUCT);
+
+        log.info("Third fetch of products");
+        log.info(shopService.getProducts().toString());
+
+        log.info("First fetch of book");
+        var book = shopService.getProduct(BOOK_PRODUCT.getId());
+        log.info("Second fetch of book");
+        book = shopService.getProduct(BOOK_PRODUCT.getId());
 
         var order = new Order(List.of(VIDEO_PRODUCT, BOOK_PRODUCT));
         shopService.placeOrder(order);

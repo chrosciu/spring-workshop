@@ -25,6 +25,10 @@ public class ShopService {
         return productService.getAll();
     }
 
+    public Product getProduct(long id) {
+        return productService.getBy(id);
+    }
+
     public Order placeOrder(Order order) {
         return orderService.add(order);
     }
