@@ -38,10 +38,6 @@ request-logging:
     - /api/*
     - /actuator/*
 spring:
-    datasource:
-        password: admin
-        url: jdbc:postgresql://localhost:5432/spring-workshop
-        username: admin
     jpa:
         hibernate:
             ddl-auto: create
