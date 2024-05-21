@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -24,14 +25,17 @@ import java.util.List;
 @Setter
 @RequiredArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Order {
     @Id
     @GeneratedValue
     private Long id;
     @NonNull
     @ManyToMany(fetch = FetchType.EAGER)
+    @ToString.Exclude
     private List<Product> products;
     @OneToOne
+    @ToString.Exclude
     private Payment payment;
 
     public BigDecimal getTotalPrice() {
