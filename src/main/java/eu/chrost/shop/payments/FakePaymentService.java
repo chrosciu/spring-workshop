@@ -1,8 +1,6 @@
 package eu.chrost.shop.payments;
 
 import eu.chrost.shop.common.Retry;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,12 +25,10 @@ public class FakePaymentService implements PaymentService {
         return paymentRepository.save(payment);
     }
 
-    @PostConstruct
     void init() {
         log.info("Bean has been created");
     }
 
-    @PreDestroy
     void destroy() {
         log.info("Bean is to be destroyed");
     }

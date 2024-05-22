@@ -23,13 +23,9 @@ class PaymentsConfiguration {
         return new HashMapPaymentRepository();
     }
 
-    @Bean
-    public PaymentService fakePaymentService(@Qualifier("uuid") PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
+    @Bean(initMethod = "init", destroyMethod = "destroy")
+    public PaymentService fakePaymentService(
+            @Qualifier("uuid") PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
         return new FakePaymentService(paymentIdGenerator, paymentRepository);
-    }
-
-    @Bean
-    public PaymentConsoleLogger paymentConsoleLogger() {
-        return new PaymentConsoleLogger();
     }
 }
