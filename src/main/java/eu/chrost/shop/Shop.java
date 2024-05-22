@@ -32,12 +32,12 @@ public class Shop {
             var shopService = applicationContext.getBean(ShopService.class);
             shopService.addProduct(VIDEO_PRODUCT);
             shopService.addProduct(BOOK_PRODUCT);
-            log.info(shopService.getProducts().toString());
+            log.info("All products: {}", shopService.getProducts().toString());
 
             var order = new Order(List.of(VIDEO_PRODUCT, BOOK_PRODUCT));
             shopService.placeOrder(order);
             var payment = shopService.payForOrder(order.getId());
-            log.info(payment.getId());
+            log.info("Payment id: {}", payment.getId());
         }
     }
 }
