@@ -1,19 +1,19 @@
 package eu.chrost.shop.payments;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 @Configuration
 class PaymentsConfiguration {
     @Bean
-    @Qualifier("incremental")
+    @Profile("!uuid")
     public PaymentIdGenerator incrementalPaymentIdGenerator() {
         return new IncrementalPaymentIdGenerator();
     }
 
     @Bean
-    @Qualifier("uuid")
+    @Profile("uuid")
     public PaymentIdGenerator uuidPaymentIdGenerator() {
         return new UUIDPaymentIdGenerator();
     }
@@ -24,8 +24,7 @@ class PaymentsConfiguration {
     }
 
     @Bean(initMethod = "init", destroyMethod = "destroy")
-    public PaymentService fakePaymentService(
-            @Qualifier("uuid") PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
+    public PaymentService fakePaymentService(PaymentIdGenerator paymentIdGenerator, PaymentRepository paymentRepository) {
         return new FakePaymentService(paymentIdGenerator, paymentRepository);
     }
 }
