@@ -5,3 +5,18 @@ incremental:
   generator:
     initial: 100
     step: 5
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+
