@@ -6,6 +6,7 @@ import eu.chrost.shop.products.ProductService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Profile;
 
 @EnableAspectJAutoProxy
 @Configuration
@@ -16,6 +17,7 @@ public class ShopConfiguration {
     }
 
     @Bean
+    @Profile("!test")
     public ShopRunner shopRunner(ShopService shopService) {
         return new ShopRunner(shopService);
     }
