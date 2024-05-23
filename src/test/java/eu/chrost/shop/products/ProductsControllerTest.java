@@ -87,4 +87,27 @@ class ProductsControllerTest {
                 .andExpect(jsonPath("$.name", is("Spring do poduszki")));
 
     }
+
+    @Test
+    void existingProductShouldBeReturned() throws Exception {
+        //given
+        var someExistingProductId = 1L;
+        when(productService.getById(someExistingProductId)).thenReturn(VIDEO_PRODUCT);
+
+        //when / then
+        mockMvc.perform(get("/products/{id}", someExistingProductId))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name", is("Spring masterclass")));
+    }
+
+    @Test
+    void nonExistingProductShouldEndWithUnprocessableEntity() throws Exception {
+        //given
+        var someNonExistingProductId = 1L;
+        when(productService.getById(someNonExistingProductId)).thenThrow(new ProductNotFoundException());
+
+        //when / then
+        mockMvc.perform(get("/products/{id}", someNonExistingProductId))
+                .andExpect(status().isUnprocessableEntity());
+    }
 }
