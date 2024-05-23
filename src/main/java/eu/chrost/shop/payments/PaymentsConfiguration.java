@@ -24,11 +24,6 @@ class PaymentsConfiguration {
         return new UUIDPaymentIdGenerator();
     }
 
-    @Bean
-    public PaymentRepository paymentRepository() {
-        return new HashMapPaymentRepository();
-    }
-
     @Bean(initMethod = "init", destroyMethod = "destroy")
     public PaymentService fakePaymentService(
             PaymentIdGenerator paymentIdGenerator,
