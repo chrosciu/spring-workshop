@@ -18,3 +18,17 @@ GET http://localhost:8080/products/1
 ### Get non-existing product
 GET http://localhost:8080/products/100
 
+### Create new order
+POST http://localhost:8080/orders
+Content-Type: application/json
+
+{
+  "productsIds" : [1, 2]
+}
+
+### Show existing order
+GET http://localhost:8080/orders/2
+
+### Show non-existing order
+GET http://localhost:8080/orders/100
+
