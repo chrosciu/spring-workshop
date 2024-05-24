@@ -6,8 +6,6 @@ import eu.chrost.shop.products.ProductType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ShopRunner implements CommandLineRunner {
     private final ShopService shopService;
-    private final PlatformTransactionManager platformTransactionManager;
 
     private static final Product VIDEO_PRODUCT = Product.builder()
             .name("Spring masterclass")
@@ -34,21 +31,28 @@ public class ShopRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        addProducts();
-        shopService.addProduct(BOOK_PRODUCT);
+        shopService.addProduct(VIDEO_PRODUCT);
+
+        log.info("First fetch of products");
         log.info(shopService.getProducts().toString());
+
+        log.info("Second fetch of products");
+        log.info(shopService.getProducts().toString());
+
+        shopService.addProduct(BOOK_PRODUCT);
+
+        log.info("Third fetch of products");
+        log.info(shopService.getProducts().toString());
+
+        log.info("First fetch of book");
+        var book = shopService.getProduct(BOOK_PRODUCT.getId());
+
+        log.info("Second fetch of book");
+        book = shopService.getProduct(BOOK_PRODUCT.getId());
 
         var order = new Order(List.of(VIDEO_PRODUCT, BOOK_PRODUCT));
         shopService.placeOrder(order);
         var payment = shopService.payForOrder(order.getId());
         log.info("Order placed with payment id: {}", payment.getId());
-    }
-
-    public void addProducts() {
-        var transactionTemplate = new TransactionTemplate(platformTransactionManager);
-        transactionTemplate.executeWithoutResult(transactionStatus -> {
-            shopService.addProduct(VIDEO_PRODUCT);
-            shopService.addProduct(BOOK_PRODUCT);
-        });
     }
 }

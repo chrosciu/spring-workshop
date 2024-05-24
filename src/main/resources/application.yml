@@ -16,6 +16,7 @@ logging:
         orm:
           jdbc:
             bind: TRACE
+spring:
   jpa:
     properties:
       hibernate:

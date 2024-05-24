@@ -21,6 +21,10 @@ public class ShopService {
         return productService.add(product);
     }
 
+    public Product getProduct(long productId) {
+        return productService.getById(productId);
+    }
+
     public List<Product> getProducts() {
         return productService.getAll();
     }

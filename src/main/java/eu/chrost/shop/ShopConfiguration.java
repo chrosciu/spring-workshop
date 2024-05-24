@@ -3,13 +3,14 @@ package eu.chrost.shop;
 import eu.chrost.shop.orders.OrderService;
 import eu.chrost.shop.payments.PaymentService;
 import eu.chrost.shop.products.ProductService;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Profile;
-import org.springframework.transaction.PlatformTransactionManager;
 
 @EnableAspectJAutoProxy
+@EnableCaching
 @Configuration
 public class ShopConfiguration {
     @Bean
@@ -19,7 +20,7 @@ public class ShopConfiguration {
 
     @Bean
     @Profile("!test")
-    public ShopRunner shopRunner(ShopService shopService, PlatformTransactionManager platformTransactionManager) {
-        return new ShopRunner(shopService, platformTransactionManager);
+    public ShopRunner shopRunner(ShopService shopService) {
+        return new ShopRunner(shopService);
     }
 }
