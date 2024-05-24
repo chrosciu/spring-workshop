@@ -8,6 +8,8 @@ incremental:
 logging:
   level:
     org:
+      springframework:
+        transaction: TRACE
       hibernate:
         SQL: DEBUG
         orm:

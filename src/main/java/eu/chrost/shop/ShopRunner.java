@@ -5,7 +5,10 @@ import eu.chrost.shop.products.Product;
 import eu.chrost.shop.products.ProductType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -14,6 +17,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ShopRunner implements CommandLineRunner {
     private final ShopService shopService;
+
+    @Autowired
+    @Lazy
+    private ShopRunner self;
 
     private static final Product VIDEO_PRODUCT = Product.builder()
             .name("Spring masterclass")
@@ -31,7 +38,7 @@ public class ShopRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        shopService.addProduct(VIDEO_PRODUCT);
+        self.addProducts();
         shopService.addProduct(BOOK_PRODUCT);
         log.info(shopService.getProducts().toString());
 
@@ -39,5 +46,14 @@ public class ShopRunner implements CommandLineRunner {
         shopService.placeOrder(order);
         var payment = shopService.payForOrder(order.getId());
         log.info("Order placed with payment id: {}", payment.getId());
+    }
+
+    @Transactional
+    public void addProducts() {
+        shopService.addProduct(VIDEO_PRODUCT);
+        if (1 == 1) {
+            throw new RuntimeException("Blah!");
+        }
+        shopService.addProduct(BOOK_PRODUCT);
     }
 }
