@@ -59,4 +59,13 @@ class ProductRepositoryTest {
         assertThat(videoProducts).extracting(Product::getId)
                 .containsExactly(1L, 3L, 7L);
     }
+
+    @Test
+    void shouldFindSingleProductWithGivenDescription() {
+        //when
+        var maybeProduct = productRepository.findSingleWithDescription("Blah");
+
+        //then
+        assertThat(maybeProduct).isEmpty();
+    }
 }
