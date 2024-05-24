@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Profile;
+import org.springframework.transaction.PlatformTransactionManager;
 
 @EnableAspectJAutoProxy
 @Configuration
@@ -18,7 +19,7 @@ public class ShopConfiguration {
 
     @Bean
     @Profile("!test")
-    public ShopRunner shopRunner(ShopService shopService) {
-        return new ShopRunner(shopService);
+    public ShopRunner shopRunner(ShopService shopService, PlatformTransactionManager platformTransactionManager) {
+        return new ShopRunner(shopService, platformTransactionManager);
     }
 }

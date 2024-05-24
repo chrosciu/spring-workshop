@@ -8,8 +8,6 @@ import eu.chrost.shop.payments.PaymentService;
 import eu.chrost.shop.products.Product;
 import eu.chrost.shop.products.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,7 +17,6 @@ public class ShopService {
     private final PaymentService paymentService;
     private final ProductService productService;
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Product addProduct(Product product) {
         return productService.add(product);
     }
