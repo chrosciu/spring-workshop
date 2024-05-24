@@ -27,4 +27,4 @@ security:
   jwt:
     secret: gBWQ9vFSz9P5x+BKPa176N4nVd4EzcZ2kwFk155s4+Gwxl7i9MhS1YD2HXaUYB+ECWB6lzSxPpMuW0LoGJgZGw==
     expirationMs: 86400000
-
+debug: true
