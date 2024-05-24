@@ -6,6 +6,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.jdbc.Sql;
 
+import static eu.chrost.shop.products.ProductType.VIDEO;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -47,5 +48,15 @@ class ProductRepositoryTest {
                 .containsExactly(5L);
 
         assertThat(products.getTotalElements()).isEqualTo(2);
+    }
+
+    @Test
+    void shouldFindAllProductsWithGivenType() {
+        //when
+        var videoProducts = productRepository.findByType(VIDEO);
+
+        //then
+        assertThat(videoProducts).extracting(Product::getId)
+                .containsExactly(1L, 3L, 7L);
     }
 }
