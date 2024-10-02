@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Aspect
-@Component
 public class RetryMethodExecutor {
     @Around("@annotation(retry)")
     public Object execute(ProceedingJoinPoint proceedingJoinPoint, Retry retry) throws Throwable {
