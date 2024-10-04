@@ -8,11 +8,7 @@ logging:
                         sql:
                             BasicBinder: TRACE
 spring:
-    datasource:
-        url: jdbc:tc:postgresql:14.4:///integration-tests-db
     jpa:
-        hibernate:
-            ddl-auto: create
         properties:
             hibernate:
                 format_sql: true
