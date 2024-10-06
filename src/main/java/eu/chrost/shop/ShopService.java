@@ -22,8 +22,13 @@ public class ShopService {
         return productService.add(product);
     }
 
-    @Transactional
+    //@Transactional
     public void addProducts(Product... products) {
+        addProductsInternal(products);
+    }
+
+    @Transactional
+    public void addProductsInternal(Product... products) {
         for (Product product : products) {
             addProduct(product);
         }
