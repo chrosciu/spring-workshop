@@ -95,5 +95,8 @@ Blog
 About
 Loading complete
 
-### jEnv ###
+# jEnv
 .java-version
+
+# SDKMAN
+.sdkmanrc
