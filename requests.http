@@ -19,7 +19,7 @@ Content-Type: application/json
     "name": "Something",
     "description": "Blah",
     "type": "BOOK",
-    "price": "PLN 100"
+    "price": "100"
 }
 
 ### Create new order
