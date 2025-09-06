@@ -97,3 +97,6 @@ Loading complete
 
 ### jEnv ###
 .java-version
+
+### SDKMAN ###
+.sdkmanrc
