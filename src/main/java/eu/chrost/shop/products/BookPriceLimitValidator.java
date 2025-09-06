@@ -11,8 +11,10 @@ public class BookPriceLimitValidator implements ConstraintValidator<BookPriceLim
     @Override
     public boolean isValid(ProductInputDto product, ConstraintValidatorContext context) {
         if (ProductType.BOOK.equals(product.getType())) {
-            if (new BigDecimal(product.getPrice()).compareTo(BigDecimal.valueOf(1000)) > 0) {
-                return false;
+            if (product.getPrice() != null) {
+                if (new BigDecimal(product.getPrice()).compareTo(BigDecimal.valueOf(1000)) > 0) {
+                    return false;
+                }
             }
         }
         return true;

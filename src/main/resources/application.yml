@@ -44,3 +44,6 @@ spring:
         properties:
             hibernate:
                 format_sql: true
+gg:
+  jte:
+    development-mode: true

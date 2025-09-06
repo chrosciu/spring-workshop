@@ -1,5 +1,6 @@
 package eu.chrost.shop.products;
 
+import eu.chrost.shop.common.web.JteValidationHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,12 +32,16 @@ public class ProductMvcController {
     @GetMapping("/new")
     public String newProduct(Model model) {
         model.addAttribute("product", new ProductInputDto());
+        model.addAttribute("validation", new JteValidationHelper());
         return "new-product";
     }
 
     @PostMapping
-    public String addProduct(@Valid @ModelAttribute("product") ProductInputDto product, BindingResult bindingResult) {
+    public String addProduct(@Valid @ModelAttribute("product") ProductInputDto product,
+                             BindingResult bindingResult,
+                             Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("validation", new JteValidationHelper(bindingResult));
             return "new-product";
         }
         Product productToAdd = productMapper.fromInputDto(product);

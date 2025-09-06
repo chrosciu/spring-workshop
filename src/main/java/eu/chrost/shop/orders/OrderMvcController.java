@@ -1,5 +1,6 @@
 package eu.chrost.shop.orders;
 
+import eu.chrost.shop.common.web.JteValidationHelper;
 import eu.chrost.shop.products.ProductMapper;
 import eu.chrost.shop.products.ProductOutputDto;
 import eu.chrost.shop.products.ProductService;
@@ -37,12 +38,16 @@ public class OrderMvcController {
     @GetMapping("/new")
     public String newOrder(Model model) {
         model.addAttribute("order", new OrderInputDto());
+        model.addAttribute("validation", new JteValidationHelper());
         return "new-order";
     }
 
     @PostMapping
-    public String addOrder(@Valid @ModelAttribute("order") OrderInputDto orderInputDto, BindingResult bindingResult) {
+    public String addOrder(@Valid @ModelAttribute("order") OrderInputDto orderInputDto,
+                           BindingResult bindingResult,
+                           Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("validation", new JteValidationHelper(bindingResult));
             return "new-order";
         }
         Order orderToAdd = orderMapper.fromInputDto(orderInputDto);
