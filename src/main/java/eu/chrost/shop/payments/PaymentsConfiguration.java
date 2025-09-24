@@ -1,10 +1,15 @@
 package eu.chrost.shop.payments;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBooleanProperty;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableConfigurationProperties(IncrementalPaymentIdGeneratorProperties.class)
@@ -40,5 +45,19 @@ class PaymentsConfiguration {
     @Bean
     public PaymentStatusChangeListener paymentStatusChangeListener() {
         return new PaymentStatusChangeListener();
+    }
+
+    @Bean
+    @ConfigurationProperties("spring.datasource.payments")
+    public DataSourceProperties paymentsDataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
+    @Bean
+    @Primary
+    public DataSource paymentsDataSource() {
+        return paymentsDataSourceProperties()
+                .initializeDataSourceBuilder()
+                .build();
     }
 }

@@ -5,3 +5,27 @@ incremental:
     generator:
         initial: 100
         step: 5
+
+spring:
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    hibernate:
+      ddl-auto: create
+  datasource:
+    payments:
+      url: jdbc:postgresql://localhost:5432/payments
+      username: myuser
+      password: secret
+      driver-class-name: org.postgresql.Driver
+    products:
+      url: jdbc:postgresql://localhost:5433/products
+      username: myuser
+      password: secret
+      driver-class-name: org.postgresql.Driver
+
+logging:
+  level:
+    sql: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
