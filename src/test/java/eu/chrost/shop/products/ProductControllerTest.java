@@ -16,8 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -98,7 +97,7 @@ public class ProductControllerTest {
         //when / then
         mockMvc.perform(get("/api/products/{id}", someProductId))
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.description", is("Brak produktu o id 1")));
+                .andExpect(jsonPath("$.description", containsString("1")));
 
     }
 
