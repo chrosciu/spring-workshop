@@ -1,5 +1,6 @@
 package eu.chrost.shop.payments;
 
+import eu.chrost.shop.common.AroundTestAnnotation;
 import eu.chrost.shop.common.Retry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ public class FakePaymentService implements PaymentService {
 
     @LogPayments
     @Retry(attempts = 2)
+    @AroundTestAnnotation
     @Override
     public Payment process(PaymentRequest paymentRequest) {
         var payment = Payment.builder()
