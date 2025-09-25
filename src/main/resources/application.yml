@@ -29,3 +29,6 @@ logging:
   level:
     sql: DEBUG
     org.hibernate.orm.jdbc.bind: TRACE
+    org.springframework.transaction: DEBUG
+    org.springframework.orm.jpa: DEBUG
+    org.hibernate.engine.transaction.internal.TransactionImpl: DEBUG

@@ -21,7 +21,6 @@ import java.util.Objects;
 
 @Configuration
 @EnableConfigurationProperties(IncrementalPaymentIdGeneratorProperties.class)
-@EnableTransactionManagement
 @EnableJpaRepositories(
         basePackageClasses = Payment.class,
         entityManagerFactoryRef = "paymentsEntityManagerFactory",
