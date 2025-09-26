@@ -42,6 +42,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         }
 
         filterChain.doFilter(request, response);
+
+        //TODO: security context should be cleaned here !
     }
 
     private String parseJwt(HttpServletRequest request) {

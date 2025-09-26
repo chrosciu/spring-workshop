@@ -105,6 +105,8 @@ Content-Type: application/json
   "password": "Maja"
 }
 
+### TODO: Store token in variable
+
 ### Get all products using token
 
 GET http://localhost:8080/api/products
